@@ -2,27 +2,22 @@ Facultad / Departamento;Hombres;Mujeres;Total
 Administración;45;23;68
 Arquitectura;20;9;29
 Diseño;18;13;31
-Decanatura Facultad;1;;1
 Arte;12;5;17
 Historia del Arte;2;6;8
 Humanidades y literatura;9;8;17
 Música;16;5;21
 CEPER;3;5;8
-Decanatura Facultad;2;4;6
 Ciencias Biológicas;11;13;24
 Física;20;5;25
 Geociencias;6;4;10
 Matemáticas;42;10;52
 Química;14;5;19
-Decanatura Facultad;2;2;4
 Antropología;6;9;15
 Ciencia Política;10;6;16
 Filosofía;7;5;12
 Historia y Geografía*;6;7;13
 Lenguas y Cultura;13;17;30
 Psicología;7;10;17
-Decanatura Facultad;6;4;10
-CIDER;7;5;12
 Derecho;24;18;42
 Economía;33;5;38
 Educación;7;10;17
@@ -34,6 +29,4 @@ Ing. Industrial;19;9;28
 Ing. Mecánica;14;;14
 Ing. Química y Alimentos**;8;4;12
 Ing. Sistemas;23;8;31
-Decanatura Facultad;6;4;10
 Medicina;14;9;23
-Otras unidades;1;2;3
