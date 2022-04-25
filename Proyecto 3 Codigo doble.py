@@ -49,7 +49,8 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
-X_entreno, Y_entreno, X_testeo, Y_testeo=  train_test_split(X,Y, test_size=0.3)
+X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.3)
 GB = GradientBoostingRegressor(n_estimators=100, learning_rate=0.01)
 GB.fit(X_entreno, Y_entreno)
-# r2_puntaje= r2_score(Y_entreno, GB.predict(X_entreno))
+r2_puntaje= r2_score(Y_entreno, GB.predict(X_entreno))
+print(GB.feature_importances_ *100)
