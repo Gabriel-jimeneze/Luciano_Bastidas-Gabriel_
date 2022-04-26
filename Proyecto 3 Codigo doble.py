@@ -48,9 +48,77 @@ Y=datospredic
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
+n_interracciones= 10000
+r2=[]
+primero=[]
+segundo=[]
+tercero=[]
+cuarto=[]
+quinto=[]
+sexto=[]
+septimo=[]
+for i in range(0,n_interracciones):
+    
+    X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.4)
+    GB = GradientBoostingRegressor(n_estimators=100, learning_rate=0.01)
+    GB.fit(X_entreno, Y_entreno)
+    r2_puntaje= r2_score(Y_entreno, GB.predict(X_entreno))
+    t=GB.feature_importances_ *100
+    r2.append(r2_puntaje)
+    primero.append(t[0])
+    segundo.append(t[1])
+    tercero.append((t[2]))
+    cuarto.append(t[3])
+    quinto.append(t[4])
+    sexto.append(t[5])
+    septimo.append((t[6]))
+finales=[]
+finales.append(np.mean(r2))
+finales.append([np.mean(primero),np.std(primero)])
+finales.append([np.mean(segundo),np.std(segundo)])
+finales.append([np.mean(tercero),np.std(tercero)])
+finales.append([np.mean(cuarto),np.std(cuarto)])
+finales.append([np.mean(quinto),np.std(quinto)])
+finales.append([np.mean(sexto),np.std(sexto)])
+finales.append([np.mean(septimo),np.std(septimo)])
+print(finales)
 
-X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.4)
-GB = GradientBoostingRegressor(n_estimators=100, learning_rate=0.01)
-GB.fit(X_entreno, Y_entreno)
-r2_puntaje= r2_score(Y_entreno, GB.predict(X_entreno))
-print(GB.feature_importances_ *100)
+learning_rates = [0.01,0.1,1]
+n_estimators = np.arange(1,220,20)
+
+fig = plt.figure(figsize=(12,5))
+
+for lr in learning_rates:
+    r2_test = []
+    r2_train = []
+
+    for ne in n_estimators:
+        GB = GradientBoostingRegressor(n_estimators=ne, learning_rate=lr)
+        GB.fit(X_entreno, Y_entreno)
+        r2_test.append( r2_score(Y_testeo, GB.predict(X_testeo)) )
+        r2_train.append( r2_score(Y_entreno, GB.predict(X_entreno)) )
+    
+    plt.subplot(1,2,1)
+    plt.plot(n_estimators,r2_test, label=f'lr:{lr}')
+        
+    plt.subplot(1,2,2)
+    plt.plot(n_estimators,r2_train, label=f'lr:{lr}')
+    
+
+plt.subplot(1,2,1)
+plt.grid()
+plt.legend()
+plt.xlabel('n_estimators')
+plt.ylabel('r2_test')
+
+plt.subplot(1,2,2)
+
+# Grafica las importancias en orden descendente
+ii = np.argsort(GB.feature_importances_)
+
+importances = GB.feature_importances_[ii]
+predictors = X.keys()[ii]
+plt.figure()
+a = pd.Series(importances, index=predictors)
+a.plot(kind='barh')
+plt.xlabel('Feature Importances')
