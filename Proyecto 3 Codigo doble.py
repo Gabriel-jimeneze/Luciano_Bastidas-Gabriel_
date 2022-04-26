@@ -48,7 +48,7 @@ Y=datospredic
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
-n_interracciones= 10000
+n_interracciones= 50
 r2=[]
 primero=[]
 segundo=[]
