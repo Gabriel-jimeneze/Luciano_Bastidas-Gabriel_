@@ -83,7 +83,7 @@ for lr in learning_rates:
     plt.legend()
     plt.xlabel('n_estimators')
     plt.ylabel('r2_test')
-    aa
+    
 
 #Grafica las importancias en orden descendente
 importances = GB.feature_importances_*100

@@ -52,7 +52,7 @@ Y=datospredic
 
 
 
-n_interracciones= 50
+n_iter= 50
 r2=[]
 primero=[]
 segundo=[]
@@ -61,36 +61,24 @@ cuarto=[]
 quinto=[]
 sexto=[]
 septimo=[]
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import AdaBoostRegressor
-for i in range(0,n_interracciones):
+print(llavpredic[programa])
+r2_max=0
+importancemax=None
+funcionalmax=None
+for j in range(n_iter):
+    X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.5)
     
-    X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.7)
-
-    GB = GradientBoostingRegressor(n_estimators=100, learning_rate=0.01)
+    GB = GradientBoostingRegressor(n_estimators=75, learning_rate=0.01,max_depth=3)
     GB.fit(X_entreno, Y_entreno)
     r2_puntaje= r2_score(Y_testeo, GB.predict(X_testeo))
     t=GB.feature_importances_ *100
-
-    primero.append(t[0])
-    segundo.append(t[1])
-    tercero.append((t[2]))
-    cuarto.append(t[3])
-    quinto.append(t[4])
-    sexto.append(t[5])
-    septimo.append((t[6]))
-finales=[]
-finales.append([np.mean(r2),np.std(r2)])
-finales.append([np.mean(primero),np.std(primero)])
-finales.append([np.mean(segundo),np.std(segundo)])
-finales.append([np.mean(tercero),np.std(tercero)])
-finales.append([np.mean(cuarto),np.std(cuarto)])
-finales.append([np.mean(quinto),np.std(quinto)])
-finales.append([np.mean(sexto),np.std(sexto)])
-finales.append([np.mean(septimo),np.std(septimo)])
-print(llavpredic[programa])
-print(finales)
-
+    
+    if(r2_puntaje>r2_max):
+        r2_max=r2_puntaje
+        funcionalmax=GB
+    
+print(r2_max)
+print(funcionalmax.feature_importances_ *100)
 
 # learning_rates = [0.01,0.1,1]
 # n_estimators = np.arange(1,220,20)
