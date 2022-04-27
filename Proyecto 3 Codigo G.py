@@ -38,8 +38,8 @@ datospredic = pd.read_csv("Matriz doble programa.csv",encoding='latin-1',delimit
 llavpredic=datospredic.keys()
 
 
-for i in range(31):
-    programa=i+1
+for i in range(1):
+    programa=10
     sumar=datospredic[llavpredic[programa]].sum()
     datospre=datospredic[llavpredic[programa]]/sumar
 
@@ -68,10 +68,10 @@ for lr in learning_rates:
     r2_train = []
 
     for ne in n_estimators:
-        GB = GradientBoostingRegressor(n_estimators=ne, learning_rate=lr)
-        GB.fit(X_entreno, Y_entreno)
-        r2_test.append( r2_score(Y_testeo, GB.predict(X_testeo)) )
-        r2_train.append( r2_score(Y_entreno, GB.predict(X_entreno)) )
+            GB = GradientBoostingRegressor(n_estimators=ne, learning_rate=lr)
+            GB.fit(X_entreno, Y_entreno)
+            r2_test.append( r2_score(Y_testeo, GB.predict(X_testeo)) )
+            r2_train.append( r2_score(Y_entreno, GB.predict(X_entreno)) )
     
     plt.subplot(1,2,1)
     plt.plot(n_estimators,r2_test, label=f'lr:{lr}')
@@ -83,7 +83,12 @@ for lr in learning_rates:
     plt.legend()
     plt.xlabel('n_estimators')
     plt.ylabel('r2_test')
-    aa
+plt.figure()
+plt.scatter(X[4],Y,label="Reales")
+plt.scatter(np.array(X[4]).reshape(1,-1),np.array(GB.predict(X)),label="Predichos")
+plt.xlabel("Profesores hombres en catedra")
+plt.ylabel("Porcentaje de doble carrera")
+plt.legend()
 
 #Grafica las importancias en orden descendente
 importances = GB.feature_importances_*100
