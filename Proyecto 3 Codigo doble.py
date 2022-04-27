@@ -28,10 +28,10 @@ datos2=pd.concat([a,b],axis=1, join ='inner').fillna(0)
 
 #sexo profesores de planta
 datos3 = pd.read_csv("Porcen_sexo_planta_2022_1.csv",encoding='latin-1',delimiter=";").fillna(0)
-# llav3=datos3.keys()
-# a=datos3[llav3[1]]/datos3[llav3[3]]
-# b=datos3[llav3[2]]/datos3[llav3[3]]
-# datos3=pd.concat([a,b],axis=1, join ='inner')
+llav3=datos3.keys()
+a=datos3[llav3[1]]/datos3[llav3[3]]
+b=datos3[llav3[2]]/datos3[llav3[3]]
+datos3=pd.concat([a,b],axis=1, join ='inner')
 
 
 datospredic = pd.read_csv("Matriz doble programa.csv",encoding='latin-1',delimiter=";").fillna(0)
@@ -52,45 +52,44 @@ Y=datospredic
 
 
 
-# n_interracciones= 50
-# r2=[]
-# primero=[]
-# segundo=[]
-# tercero=[]
-# cuarto=[]
-# quinto=[]
-# sexto=[]
-# septimo=[]
-# from sklearn.tree import DecisionTreeRegressor
-# from sklearn.ensemble import AdaBoostRegressor
-# for i in range(0,n_interracciones):
+n_interracciones= 50
+r2=[]
+primero=[]
+segundo=[]
+tercero=[]
+cuarto=[]
+quinto=[]
+sexto=[]
+septimo=[]
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import AdaBoostRegressor
+for i in range(0,n_interracciones):
     
-#     X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.7)
+    X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.7)
 
-#     AdaB = AdaBoostRegressor(base_estimator=DecisionTreeRegressor(max_depth=3), n_estimators=11, learning_rate=0.01)
-#     AdaB.fit(X_entreno, Y_entreno)
-#     r2_puntaje= r2_score(Y_entreno, GB.predict(X_entreno))
-#     t=GB.feature_importances_ *100
-#     print(t)
-#     print(r2_puntaje)
-#     primero.append(t[0])
-#     segundo.append(t[1])
-#     tercero.append((t[2]))
-#     cuarto.append(t[3])
-#     quinto.append(t[4])
-#     sexto.append(t[5])
-#     septimo.append((t[6]))
-# finales=[]
-# finales.append([np.mean(r2),np.std(r2)])
-# finales.append([np.mean(primero),np.std(primero)])
-# finales.append([np.mean(segundo),np.std(segundo)])
-# finales.append([np.mean(tercero),np.std(tercero)])
-# finales.append([np.mean(cuarto),np.std(cuarto)])
-# finales.append([np.mean(quinto),np.std(quinto)])
-# finales.append([np.mean(sexto),np.std(sexto)])
-# finales.append([np.mean(septimo),np.std(septimo)])
-# print(llavpredic[programa])
-# print(finales)
+    GB = GradientBoostingRegressor(n_estimators=100, learning_rate=0.01)
+    GB.fit(X_entreno, Y_entreno)
+    r2_puntaje= r2_score(Y_testeo, GB.predict(X_testeo))
+    t=GB.feature_importances_ *100
+
+    primero.append(t[0])
+    segundo.append(t[1])
+    tercero.append((t[2]))
+    cuarto.append(t[3])
+    quinto.append(t[4])
+    sexto.append(t[5])
+    septimo.append((t[6]))
+finales=[]
+finales.append([np.mean(r2),np.std(r2)])
+finales.append([np.mean(primero),np.std(primero)])
+finales.append([np.mean(segundo),np.std(segundo)])
+finales.append([np.mean(tercero),np.std(tercero)])
+finales.append([np.mean(cuarto),np.std(cuarto)])
+finales.append([np.mean(quinto),np.std(quinto)])
+finales.append([np.mean(sexto),np.std(sexto)])
+finales.append([np.mean(septimo),np.std(septimo)])
+print(llavpredic[programa])
+print(finales)
 
 
 # learning_rates = [0.01,0.1,1]
