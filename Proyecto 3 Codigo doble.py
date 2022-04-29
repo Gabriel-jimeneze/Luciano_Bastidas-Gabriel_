@@ -40,7 +40,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
-programa=6
+programa=22
 sumar=datospredic[llavpredic[programa]].sum()
 datospredic=datospredic[llavpredic[programa]]/sumar
 
@@ -52,7 +52,7 @@ Y=datospredic
 
 
 
-n_iter= 50
+n_iter= 200
 r2=[]
 primero=[]
 segundo=[]
@@ -65,20 +65,23 @@ print(llavpredic[programa])
 r2_max=0
 importancemax=None
 funcionalmax=None
-for j in range(n_iter):
-    X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.5)
-    
-    GB = GradientBoostingRegressor(n_estimators=75, learning_rate=0.01,max_depth=3)
-    GB.fit(X_entreno, Y_entreno)
-    r2_puntaje= r2_score(Y_testeo, GB.predict(X_testeo))
-    t=GB.feature_importances_ *100
-    
-    if(r2_puntaje>r2_max):
-        r2_max=r2_puntaje
-        funcionalmax=GB
+
+YY=None
+YYtest=None
+
+X_entreno,X_testeo, Y_entreno, Y_testeo=  train_test_split(X,Y, test_size=0.5)
+
+GB = GradientBoostingRegressor(n_estimators=75, learning_rate=0.01,max_depth=3)
+GB.fit(X_entreno, Y_entreno)
+r2_puntaje= r2_score(Y_testeo, GB.predict(X_testeo))
+t=GB.feature_importances_ *100
+
+funcionalmax=GB
+YY=Y_testeo
+YYtest=GB.predict(X)
     
 print(r2_max)
-print(funcionalmax.feature_importances_ *100)
+print(np.round(funcionalmax.feature_importances_,2)*100)
 
 # learning_rates = [0.01,0.1,1]
 # n_estimators = np.arange(1,220,20)
